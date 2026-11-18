@@ -812,7 +812,13 @@ const RelationModalWithContext = ({
           })}
           onLoadMore={handleLoadMore}
           textValue={textValue}
-          onChange={handleChange}
+          onChange={(relationId) => {
+            handleChange(relationId);
+            // The search that picked the relation must not carry over: reopening the dropdown
+            // should list the remaining entries, not only matches for the previous search.
+            setTextValue('');
+            handleSearch('');
+          }}
           onTextValueChange={(text) => {
             setTextValue(text);
           }}

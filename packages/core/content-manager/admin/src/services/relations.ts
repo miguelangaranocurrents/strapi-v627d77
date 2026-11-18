@@ -126,7 +126,15 @@ const relationsApi = contentManagerApi.injectEndpoints({
           endpointName,
           model: queryArgs.model,
           targetField: queryArgs.targetField,
+          /**
+           * The `id` of the source (document or component) must be part of the key. Otherwise
+           * every component in a dynamic zone with the same selection shares one cache entry and
+           * is served the results computed for a different component.
+           */
+          id: queryArgs.params?.id,
+          locale: queryArgs.params?.locale,
           _q: queryArgs.params?._q,
+          _filter: queryArgs.params?._filter,
           idsToOmit: queryArgs.params?.idsToOmit,
           idsToInclude: queryArgs.params?.idsToInclude,
         };
